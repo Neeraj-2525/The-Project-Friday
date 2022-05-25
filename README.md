@@ -1,12 +1,14 @@
 # The-Project-Friday
-This repository consists of a AI voice assistant
-THE MAIN FEATURES ARE
-> TO START FRIDAY, SAY 'friday' IN YOUR SENTENCE...
+>>>This repository consists of a AI voice assistant THE MAIN FEATURES ARE
+
+>> TO START FRIDAY, SAY 'friday' IN YOUR SENTENCE.
+
+> voice commands should be like...
 * CHAT FEATURES
 * GOOGLE SEARCH
 * OPEN ANY WEBSITE
 * SHUTDOWN AND RESTART (password = 99)
-* BRIGHTNESS CONTROL
+* BRIGHTNESS CONTROL (increase or decrease)
 * PLAY GAME
 * SEARCH FOR SONGS (SAY PLAY "SONGNAME")
 * TRANSLATE

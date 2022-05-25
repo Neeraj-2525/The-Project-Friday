@@ -1,9 +1,9 @@
 # The-Project-Friday
->>>This repository consists of a AI voice assistant THE MAIN FEATURES ARE
+>This repository consists of a AI voice assistant THE MAIN FEATURES ARE
 
 >> TO START FRIDAY, SAY 'friday' IN YOUR SENTENCE.
 
-> voice commands should be like...
+>>> voice commands should be like...
 * CHAT FEATURES
 * GOOGLE SEARCH
 * OPEN ANY WEBSITE

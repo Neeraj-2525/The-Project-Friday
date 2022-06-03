@@ -280,7 +280,6 @@ time.sleep(1)
 print("2...",end = "")
 time.sleep(1)
 print("1...",end = "\n")
-time.sleep(1)
 
 
 if __name__ == '__main__':
@@ -297,8 +296,8 @@ if __name__ == '__main__':
 			query = takeCommand().lower()
 
 		# TO STOP FRIDAY
-		elif (('sleep' in query) and ('friday' in query)) or ("go sleep" in query) or (
-				(query == "no") or (query == "nope") or (query == "nah") or (query == "nahi")):
+		elif (('sleep' in query) and ('friday' in query)) or (("go" in query) and ("sleep" in query)) or (
+				(query == "no") or (query == "nope") or (query == "nah") or (query == "nahi")) or (query == "sleep"):
 			print("okay, should I go offline now?")
 			speak("okay, should I go offline now?")
 			inp = takeCommand().lower()
@@ -458,7 +457,7 @@ if __name__ == '__main__':
 			pywhatkit.search(query)
 
 		# TO OPEN YOUTUBE
-		elif ('open youtube' in query) or ('youtube khol' in query):
+		elif ('open youtube' in query) or ('youtube khol' in query) or (('watch' in query) and ('youtube' in query)):
 			url = "youtube.com"
 			# chrome_path = 'C:/Program Files (×86)/Google/Chrome/Application/chrome.exe %s'
 			# webbrowser.get(chrome_path).open(url) comment
@@ -652,16 +651,11 @@ if __name__ == '__main__':
 			speak("Okay, anything else?")
 
 		# TO PLAY MUSIC PRESENT IN SYSTEM
-		elif (('play' in query) and ('music' in query)) or ("play music" in query):
-			try:
-				# musicPath = "C:\\Users\\NEERAJ KUMAR\\Desktop\\Resso.lnk"
-				os.startfile(musicPath)
-				speak("Playing music sir")
-
-			except Exception as e:
-				speak("Playing music sir")
-				url = "https://youtu.be/99XF71Fpjl8"
-				webbrowser.open(url)
+		elif (('play' in query) and ('music' in query)) or ("play music" in query) or ("listen music" in query):
+			speak("Playing music sir")
+			url = "https://youtu.be/99XF71Fpjl8"
+			webbrowser.open(url)
+			speak("anything else?")
 
 		# TO OPEN ANY WEB URL
 		elif ("open" in query) and (("website" in query) or ("url")):
@@ -709,7 +703,7 @@ if __name__ == '__main__':
 				speak("playing music")
 				pathformusic = "C:\\Users\\NEERAJ KUMAR\\Music\\Playlists\\mix.zpl"
 				os.startfile(pathformusic)
-				break
+				ToRunFriday()
 
 			elif ('game' in some_random_command):
 				Game()
@@ -728,7 +722,7 @@ if __name__ == '__main__':
 				os.startfile(anime_path)
 				print('playing Plastic Memories')
 				speak('playing Plastic Memories')
-				break
+				ToRunFriday()
 
 			else:
 				print("Anime not in system, playing Hyouka")
@@ -736,13 +730,13 @@ if __name__ == '__main__':
 				anime_path = "C:\\Users\\NEERAJ KUMAR\\Videos\\Hyouka\Hyouka - 01 [720p] [Dual] %40Anime_Gallery.mkv"
 				os.startfile(anime_path)
 				speak('playing Hyouka')
-				break
+				ToRunFriday()
 
 		# FILE EXPLORER
 		elif ('open' in query) and ('file explorer' in query):
 			speak('opening file explorer')
 			keyboard.press_and_release('win + e')
-			break
+			
 
 		# OPEN CMD
 		elif (('open' and 'cmd') in query) or (('start' and 'cmd') in query) or (('run' and 'cmd') in query) or (
@@ -864,29 +858,50 @@ if __name__ == '__main__':
 			print('sorry sir, I am still learning')
 			speak('sorry sir, I am still learning')
 			speak("Try asking about something else in the world. Or let's watch something on youtube")
-			query = takeCommand().lower()
+
 
 		# Brightness control
 		elif ('control brightness' in query) or (((('increase') or '(decrease')) and ('brightness' in query)):
+			current_brightness = sbc.get_brightness()
+			print(f"current brightness {current_brightness}")
 			print("tell me the brightness percentage")
 			speak("tell me the brightness percentage")
 			brightness_command = takeCommand()
-			current_brightness = sbc.get_brightness()
-			print(f"current brightness {current_brightness}")
 
-			brightness_command = brightness_command.replace('increase brightness to', ' ')
-			brightness_command = brightness_command.replace('increase to', ' ')
-			brightness_command = brightness_command.replace('percent', ' ')
-			brightness_command = brightness_command.replace('%', ' ')
+			brightness_command = brightness_command.replace('increase brightness to', '')
+			brightness_command = brightness_command.replace('increase', '')
+			brightness_command = brightness_command.replace('percent', '')
+			brightness_command = brightness_command.replace('brightness', '')
+			brightness_command = brightness_command.replace('decrease', '')
+			brightness_command = brightness_command.replace('to', '')
+			brightness_command = brightness_command.replace('%', '')
+			brightness_command = brightness_command.replace('i', '')
+			brightness_command = brightness_command.replace('want', '')
+			brightness_command = brightness_command.replace('friday', '')
 
-			print(f"increasing brightness to {brightness_command}")
-			speak(f"increasing brightness to {brightness_command}")
-			word_to_num = brightness_command
-			res = w2n.word_to_num(word_to_num)
-			sbc.fade_brightness(res)
-			print("Okay, anything else?")
-			speak("Okay, anything else?")
+			try:
+				if 'increase' in query:
+					print(f"increasing brightness to {brightness_command}")
+					speak(f"increasing brightness to {brightness_command}")
+					word_to_num = brightness_command
+					res = w2n.word_to_num(word_to_num)
+					sbc.fade_brightness(res)
+					print("Okay, anything else?")
+					speak("Okay, anything else?")
 
+				elif 'decrease' in query:
+					print(f"decreasing brightness to {brightness_command}")
+					speak(f"decreasing brightness to {brightness_command}")
+					word_to_num = brightness_command
+					res = w2n.word_to_num(word_to_num)
+					sbc.fade_brightness(res)
+					print("Okay, anything else?")
+					speak("Okay, anything else?")
+
+			except Exception as e:
+				print("just tell the brightness percentage only")
+				speak("just tell the brightness percentage only")
+				
 		# TO CLICK PICTURE
 		elif (('click' in query) and ('picture' in query)):
 			speak("opening camera")
@@ -943,6 +958,54 @@ if __name__ == '__main__':
 			pywhatkit.playonyt(query)
 		# lol = True
 
+		elif ('wait' in query):
+			query = query.replace("friday", "")
+			query = query.replace("wait", "")
+			query = query.replace("for", "")
+			query = query.replace("please", "")
+			query = query.replace("hey", "")
+
+			if (("seconds" in query) or ("second" in query)):
+				query = query.replace("seconds", "")
+				query = query.replace("second", "")
+				print(f"going offline for {query} seconds")
+				speak(f"going offline for {query} seconds")
+				wait_time = int(query)
+				time.sleep(wait_time)
+
+				print("I am online again")
+				speak("I am online again")
+
+			elif (("minutes" in query) or ("minute" in query)):
+				query = query.replace("minutes", "")
+				query = query.replace("minute", "")
+				print(f"going offline for {query} minutes")
+				speak(f"going offline for {query} minutes")
+				wait_time = int(query)
+				wait_time = wait_time * 60
+				time.sleep(wait_time)
+
+				print("I am online again")
+				speak("I am online again")
+
+			elif (("hours" in query) or ("hour" in query)):
+				query = query.replace("hours", "")
+				query = query.replace("hour", "")			
+				print(f"going offline for {query} hour")
+				speak(f"going offline for {query} hour")
+				wait_time = int(query)
+				wait_time = wait_time * 3600
+				time.sleep(wait_time)
+
+				print("I am online again")
+				speak("I am online again")
+
+			else:
+				print("okay, waiting")
+				speak("okay, waiting")
+				time.sleep(10)				
+				print("I am online again")
+				speak("I am online again")
 
 		# IF HER KNOWLEDGE LACKS
 		else:
@@ -962,7 +1025,6 @@ if __name__ == '__main__':
 				else:
 					print("anything else?")
 					speak("okay, anything else?")
-					query = takeCommand().lower()
 
 			except Exception as e:
 				print(':)')
